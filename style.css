@@ -1,0 +1,462 @@
+/* ==========================================================================
+   1. CSS ПЕРЕМЕННЫЕ (ДИЗАЙН-СИСТЕМА)
+   ========================================================================== */
+:root {
+    /* Цветовая палитра */
+    --color-primary: #0A2540; /* Глубокий синий (основной текст, фоны) */
+    --color-accent: #E63946;  /* Коралловый (кнопки, акценты, hover) */
+    --color-accent-hover: #D62828; /* Темный коралловый */
+    --color-bg-light: #F8F9FA; /* Светло-серый (фоны секций) */
+    --color-white: #FFFFFF;
+    --color-text-main: #333333;
+    --color-text-muted: #666666;
+    --color-sand: #F1E3D3; /* Песочный (мягкие акценты) */
+
+    /* Типографика */
+    --font-main: 'Montserrat', sans-serif;
+    
+    /* Отступы и радиусы */
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --transition-smooth: 0.3s ease-in-out;
+    --shadow-default: 0 4px 20px rgba(10, 37, 64, 0.08);
+    --shadow-hover: 0 12px 30px rgba(10, 37, 64, 0.15);
+}
+
+/* ==========================================================================
+   2. БАЗОВЫЕ НАСТРОЙКИ (RESET)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Плавный скролл по якорным ссылкам */
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--color-text-main);
+    background-color: var(--color-white);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-smooth);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Утилита для скрытия лейблов форм (доступность) */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   3. ГЛОБАЛЬНЫЕ КЛАССЫ
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Общие стили секций */
+section {
+    padding: 60px 0;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-smooth);
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+}
+
+/* ==========================================================================
+   4. ШАПКА САЙТА (HEADER)
+   ========================================================================== */
+.site-header {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+/* Исходное состояние шапки (например, прозрачная на главном экране) */
+.site-header {
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Состояние при скролле (добавляется скриптом) */
+.site-header.is-scrolled {
+    background-color: var(--color-white); /* Белый фон из ваших переменных */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Тень для отрыва от контента */
+}
+
+.site-header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.main-nav a {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.main-nav a:hover {
+    color: var(--color-accent);
+}
+
+/* ==========================================================================
+   5. ГЛАВНЫЙ ЭКРАН (HERO SECTION)
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    height: 90vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /* Фоновое изображение + Затемнение линейным градиентом */
+    background: linear-gradient(rgba(10, 37, 64, 0.5), rgba(10, 37, 64, 0.7)),
+                url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop') center/cover no-repeat;
+    color: var(--color-white);
+    padding: 0;
+}
+
+.hero-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   6. О НАС (ABOUT)
+   ========================================================================== */
+.about-section {
+    background-color: var(--color-white);
+}
+
+.about-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   7. НАПРАВЛЕНИЯ (DESTINATIONS)
+   ========================================================================== */
+.destinations-section {
+    background-color: var(--color-bg-light);
+}
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile 1 колонка */
+    gap: 30px;
+}
+
+.destination-card {
+    background: var(--color-white);
+    padding: 40px 30px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-default);
+    transition: all var(--transition-smooth);
+    border-top: 4px solid transparent;
+}
+
+.destination-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-top-color: var(--color-accent);
+}
+
+.destination-title {
+    font-size: 20px;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.destination-text {
+    color: var(--color-text-muted);
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   8. ПРЕИМУЩЕСТВА (ADVANTAGES)
+   ========================================================================== */
+.advantages-section {
+    background-color: var(--color-white);
+}
+
+.advantages-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile 1 колонка */
+    gap: 40px 20px;
+}
+
+.advantage-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.advantage-icon {
+    font-size: 40px;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+}
+
+.advantage-title {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.advantage-text {
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   9. ОТЗЫВЫ (REVIEWS)
+   ========================================================================== */
+.reviews-section {
+    background-color: var(--color-bg-light);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.review-card {
+    background-color: var(--color-white);
+    padding: 30px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-default);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-quote {
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.review-author {
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+}
+
+/* ==========================================================================
+   10. ФОРМА ЗАХВАТА (LEAD FORM)
+   ========================================================================== */
+.lead-form-section {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+}
+
+.lead-form-section .section-title {
+    color: var(--color-white);
+}
+
+.form-subtitle {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    opacity: 0.8;
+}
+
+.tour-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tour-form input {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    font-family: var(--font-main);
+    font-size: 16px;
+    outline: none;
+    transition: box-shadow var(--transition-smooth);
+}
+
+.tour-form input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.btn-submit {
+    width: 100%;
+    font-size: 18px;
+}
+
+.privacy-policy-text {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 10px;
+}
+
+.privacy-policy-text a {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   11. ПОДВАЛ (FOOTER)
+   ========================================================================== */
+.site-footer {
+    background-color: #051525; /* Еще более темный синий */
+    color: var(--color-white);
+    text-align: center;
+    padding: 30px 0;
+}
+
+.copyright {
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+
+/* ==========================================================================
+   12. МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ)
+   ========================================================================== */
+
+/* Tablet (Планшеты) */
+@media (min-width: 768px) {
+    section {
+        padding: 80px 0;
+    }
+
+    .site-header .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .hero-title {
+        font-size: 52px;
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+    }
+
+    .destinations-grid,
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+    }
+
+    .advantages-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+    }
+}
+
+/* Desktop (Десктопы) */
+@media (min-width: 1024px) {
+    section {
+        padding: 100px 0;
+    }
+
+    .hero-title {
+        font-size: 64px;
+    }
+
+    .destinations-grid,
+    .reviews-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    }
+
+    .advantages-list {
+        grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+    }
+}
