@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ==========================================================================
-    // 1. Плавный скролл (Smooth Scroll) для якорных ссылок
-    // ==========================================================================
     const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
 
     smoothScrollLinks.forEach(link => {
@@ -11,13 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const targetId = this.getAttribute('href');
 
-            // Пропускаем пустые ссылки
             if (targetId === '#') return;
 
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // Учитываем высоту фиксированной шапки, чтобы она не перекрывала контент
                 const headerHeight = document.querySelector('.site-header').offsetHeight;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
@@ -30,11 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==========================================================================
-    // 2. Изменение фона шапки при скролле страницы
-    // ==========================================================================
     const header = document.querySelector('.site-header');
-    const scrollThreshold = 50; // Количество пикселей для срабатывания эффекта
+    const scrollThreshold = 50;
 
     const handleScroll = () => {
         if (window.scrollY > scrollThreshold) {
@@ -44,18 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Слушаем событие скролла
     window.addEventListener('scroll', handleScroll);
-    // Проверяем позицию при загрузке страницы (если пользователь обновил страницу в середине)
+
     handleScroll();
 
-    // ==========================================================================
-    // 3. Отправка формы на FastAPI Backend (fetch)
-    // ==========================================================================
     const leadForm = document.querySelector('.tour-form');
 
-    // Укажите URL вашего запущенного бэкенда
-    const API_URL = 'http://127.0.0.1:8000/api/tour-request';
+    const API_URL = 'https://travelpro-backend.onrender.com/api/tour-request';
 
     if (leadForm) {
         leadForm.addEventListener('submit', async (e) => {
@@ -71,14 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Формируем payload в соответствии с Pydantic-моделью TourRequest
             const payload = {
                 name: nameValue,
                 phone: contactValue,
                 comment: destinationValue || null
             };
 
-            // Блокируем кнопку, чтобы избежать двойной отправки
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
 
@@ -105,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Сетевая ошибка:', error);
                 alert('Не удалось подключиться к серверу. Попробуйте позже.');
             } finally {
-                // Разблокируем кнопку
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Обсудить путешествие';
             }
